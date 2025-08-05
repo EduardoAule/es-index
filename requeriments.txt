@@ -1,3 +1,6 @@
+# links
+# https://elasticsearch-py.readthedocs.io/en/v9.0.3/api/indices.html#elasticsearch.client.IndicesClient.get
+
 # install dependencies
 # pip install -r requirements.txt
 elasticsearch
