@@ -36,7 +36,7 @@ for index in indices:
     for a in AGENTS:
         # indice contiene el nombre de un agente valido
         if index_name.__contains__(a):
-            print(f"Yes! {index_name} is containing.")
+            # print(f"Yes! {index_name} is containing.")
             # obtener index y agregarlo a una array
             resp = es.indices.get(index=index_name)
             agents_indices.append(resp.body[index_name])
@@ -51,10 +51,7 @@ try:
         index_name = aindex['settings']['index']['provided_name']
         my_datetime = datetime.fromtimestamp(int(aindex['settings']['index']['creation_date']) / 1000)
         index_datetime = my_datetime.replace(tzinfo=UTC)
-        if index_datetime > dt_last_days:
-            print(index_name, index_datetime, "vigente")
-        else:
-            # print(index_name, my_datetime, "old")
+        if not index_datetime > dt_last_days:
             # es.indices.delete(index=index_name)
             print("Delete index %s with creation_date %s" % (index_name, index_datetime))
 
