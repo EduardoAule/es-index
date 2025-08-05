@@ -1,9 +1,12 @@
+import os
 from elasticsearch import Elasticsearch
 from datetime import datetime, timedelta
 from pytz import timezone, UTC
+import json
 
 tz = timezone('America/Mexico_City')
 # agentes
+AGENTS = json.loads(os.environ['AGENTS_COMME'])
 agents = ["ims-worker", "ims-rest"]
 OLDERS_WITH_DAYS = 20
 
@@ -49,3 +52,4 @@ for aindex in agents_indices:
         print(index_name, my_datetime, "vigente")
     else:
         print(index_name, my_datetime, "old")
+        # es.indices.delete(index=index_name)
