@@ -52,7 +52,7 @@ try:
         my_datetime = datetime.fromtimestamp(int(aindex['settings']['index']['creation_date']) / 1000)
         index_datetime = my_datetime.replace(tzinfo=UTC)
         if not index_datetime > dt_last_days:
-            # es.indices.delete(index=index_name)
+            es.indices.delete(index=index_name)
             print("Delete index %s with creation_date %s" % (index_name, index_datetime))
 
 except Exception as e:
