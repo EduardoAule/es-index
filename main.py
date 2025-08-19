@@ -12,7 +12,7 @@ tz = timezone('America/Mexico_City')
 AGENTS = json.loads(os.environ['AGENTS_NAMES'])
 OLDERS_WITH_DAYS = os.getenv('OLDERS_WITH_DAYS')
 
-es = Elasticsearch("http://192.167.36.108:9200")
+es = Elasticsearch(os.getenv('ELASTICSEARCH_URL') + ':' + os.getenv('ELASTICSEARCH_PORT'))
 
 # obtener fecha actual y 14 dias atras
 # ejemplo patron: ims-rest-2025.08.01
@@ -52,7 +52,7 @@ try:
         my_datetime = datetime.fromtimestamp(int(aindex['settings']['index']['creation_date']) / 1000)
         index_datetime = my_datetime.replace(tzinfo=UTC)
         if not index_datetime > dt_last_days:
-            es.indices.delete(index=index_name)
+            # es.indices.delete(index=index_name)
             print("Delete index %s with creation_date %s" % (index_name, index_datetime))
 
 except Exception as e:
