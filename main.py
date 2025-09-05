@@ -12,7 +12,9 @@ tz = timezone('America/Mexico_City')
 AGENTS = json.loads(os.environ['AGENTS_NAMES'])
 OLDERS_WITH_DAYS = os.getenv('OLDERS_WITH_DAYS')
 
-es = Elasticsearch(os.getenv('ELASTICSEARCH_URL') + ':' + os.getenv('ELASTICSEARCH_PORT'))
+es = Elasticsearch(os.getenv('ELASTICSEARCH_URL') + ':' + os.getenv('ELASTICSEARCH_PORT'),
+                   verify_certs=False,
+                   basic_auth=("elastic", "d032s7gBVNRUv5TO28gt1M40"))
 
 # obtener fecha actual y 14 dias atras
 # ejemplo patron: ims-rest-2025.08.01
@@ -28,8 +30,9 @@ print("datestring:", dt_last_days, ds)
 agents_indices = []
 # List all index
 indices = es.cat.indices( format="json")
-# print(indices[7])
+print(indices)
 
+'''
 # Filtrar por nombre de agente
 for index in indices:
     index_name = index['index']
@@ -57,3 +60,4 @@ try:
 
 except Exception as e:
     print("Cannot delete index: %s exc: %s" % (index_name, e))
+'''
